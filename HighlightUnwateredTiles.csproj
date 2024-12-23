@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <AssemblyName>HighlightUnwateredTiles</AssemblyName>
+        <RootNamespace>HighlightUnwateredTiles</RootNamespace>
+        <Version>1.0.0</Version>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <GamePath>~/Library/Application Support/steam/steamapps/common/Stardew Valley</GamePath>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Pathoschild.Stardew.ModBuildConfig" Version="4.3.2" />
+    </ItemGroup>
+
+</Project>
