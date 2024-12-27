@@ -1,0 +1,10 @@
+{
+  "Name": "HighlightUnwateredTiles",
+  "Author": "Mike Hollingshaus",
+  "Version": "1.0.0",
+  "Description": "Finds all unwatered crops and highlights them for the player.",
+  "UniqueID": "mikehaus.HighlightUnwateredTiles",
+  "EntryDll": "HighlightUnwateredTiles.dll",
+  "MinimumApiVersion": "4.0.0",
+  "UpdateKeys": []
+}
