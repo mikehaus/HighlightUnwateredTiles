@@ -1,16 +1,9 @@
 using System;
-using Force.DeepCloner;
 using HighlightUnwateredTiles.Utilities;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using StardewValley.Menus;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
-using StardewModdingAPI.Utilities;
 using StardewValley;
-using StardewValley.GameData.Crops;
-using StardewValley.GameData.HomeRenovations;
-using StardewValley.SDKs;
 using StardewValley.TerrainFeatures;
 
 namespace HighlightUnwateredTiles
@@ -46,9 +39,6 @@ namespace HighlightUnwateredTiles
             if (!_showHighlightLayer) return;
                 
             _waterableCropCoordinates.Clear();
-
-            bool isFarm = Game1.currentLocation is Farm;
-            if (!isFarm) return;
 
             IEnumerable<Vector2> visibleTiles = TileHelper.GetTilesInViewport(2);
 
