@@ -1,4 +1,5 @@
 using System;
+using Force.DeepCloner;
 using HighlightUnwateredTiles.Utilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -17,15 +18,33 @@ namespace HighlightUnwateredTiles
     public class ModEntry : Mod
     {
         private List<Vector2> _waterableCropCoordinates = new List<Vector2>();
+        private bool _showHighlightLayer = false;
 
         public override void Entry(IModHelper helper)
         {
+            helper.Events.Input.ButtonPressed += this.OnButtonPressed;
             helper.Events.Display.RenderingHud += this.OnRenderingHud;
+        }
+
+        private void OnButtonPressed(object? sender, ButtonPressedEventArgs e)
+        {
+            switch (e.Button)
+            {
+                case SButton.F2:
+                    _showHighlightLayer = !_showHighlightLayer;
+                    String toggleMessage = _showHighlightLayer ? "Now highlighting waterable crops" : "Now hiding waterable crops"; 
+                    DrawLayerToggledToast(toggleMessage); 
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void OnRenderingHud(object? sender, RenderingHudEventArgs e)
         {
             if (!Context.IsWorldReady) return;
+            if (!_showHighlightLayer) return;
+                
             _waterableCropCoordinates.Clear();
 
             bool isFarm = Game1.currentLocation is Farm;
@@ -37,7 +56,7 @@ namespace HighlightUnwateredTiles
             {
                 HoeDirt? dirt = GetHoeDirtAtCoordinates(coordinates);
                 if (dirt == null) continue;
-                if (dirt.crop != null && dirt.needsWatering())
+                if (dirt.crop != null && !dirt.isWatered())
                 {
                     _waterableCropCoordinates.Add(coordinates);
                 }
@@ -45,7 +64,7 @@ namespace HighlightUnwateredTiles
 
             foreach (var coordinates in _waterableCropCoordinates)
             {
-                HighlightTile(e, coordinates, Color.Aqua * 0.5f);
+                HighlightTile(e, coordinates, Color.Aqua * 0.3f);
             }
         }
 
@@ -69,6 +88,11 @@ namespace HighlightUnwateredTiles
             bool isTerrain = currLocation.terrainFeatures.TryGetValue(coordinates, out TerrainFeature terrain);
 
             return (isTerrain && terrain is HoeDirt dirt) ? dirt : null;
+        }
+
+        private void DrawLayerToggledToast(String dialogMessage)
+        {
+           Game1.addHUDMessage(new HUDMessage(dialogMessage)); 
         }
     }
 }
