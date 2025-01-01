@@ -5,7 +5,7 @@ using xTile.Layers;
 namespace HighlightUnwateredTiles.Utilities;
 
 /// <summary>
-/// Extension helper utilities for working with tiles
+/// Extension helper utilities for working with Game tiles
 /// </summary>
 internal static class TileHelper
 {
